@@ -79,6 +79,11 @@ public class FarmController {
     CropDto savedCrop;
     try {
       savedCrop = cropService.createCrop(farmId, cropDto);
+      Crop crop = new Crop();
+      crop.setName(cropDto.name());
+      crop.setPlantedArea(cropDto.plantedArea());
+      crop.setPlantedDate(cropDto.plantedDate());
+      crop.setHarvestDate(cropDto.harvestDate());
       return ResponseEntity.status(201).body(savedCrop);
     } catch (RuntimeException e) {
       return ResponseEntity.status(404).body(e.getMessage());

@@ -38,6 +38,8 @@ public class CropService {
       crop.setName(cropDto.name());
       crop.setPlantedArea(cropDto.plantedArea());
       crop.setFarm(farm);
+      crop.setPlantedDate(cropDto.plantedDate());
+      crop.setHarvestDate(cropDto.harvestDate());
       Crop savedCrop = cropRepository.save(crop);
       return CropDto.fromCrop(savedCrop);
     } else {
@@ -55,7 +57,7 @@ public class CropService {
       Farm farm = farmOptional.get();
       List<Crop> crops = cropRepository.findByFarmId(farmId);
       return crops.stream()
-          .map(crop -> new CropDto(crop.getId(), crop.getName(), crop.getPlantedArea(), farmId))
+          .map(crop -> CropDto.fromCrop(crop))
           .collect(Collectors.toList());
     } else {
       throw new RuntimeException("Fazenda não encontrada!");
