@@ -3,8 +3,10 @@ package com.betrybe.agrix.controllers;
 import com.betrybe.agrix.dtos.FertilizerDto;
 import com.betrybe.agrix.models.entities.Fertilizer;
 import com.betrybe.agrix.services.FertilizerService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,5 +30,10 @@ public class FertilizerController {
   public ResponseEntity<Fertilizer> create(@RequestBody FertilizerDto fertilizerDto) {
     Fertilizer newFertilizer = fertilizerService.create(fertilizerDto.toEntity());
     return ResponseEntity.status(201).body(newFertilizer);
+  }
+
+  @GetMapping()
+  public List<Fertilizer> findAll() {
+    return fertilizerService.findAll();
   }
 }
