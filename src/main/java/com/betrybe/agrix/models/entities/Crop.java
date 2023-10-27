@@ -99,5 +99,4 @@ public class Crop {
     this.harvestDate = harvestDate;
   }
 
-
 }

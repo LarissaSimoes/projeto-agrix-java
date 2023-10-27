@@ -5,6 +5,7 @@ import com.betrybe.agrix.models.entities.Crop;
 import com.betrybe.agrix.models.entities.Farm;
 import com.betrybe.agrix.models.repositories.CropRepository;
 import com.betrybe.agrix.models.repositories.FarmRepository;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -87,5 +88,12 @@ public class CropService {
     } else {
       return Optional.empty();
     }
+  }
+
+  /**
+   * This method finds all crops by harvest date.
+   */
+  public List<Crop> findCropsByHarvestDate(LocalDate start, LocalDate end) {
+    return cropRepository.findByHarvestDateBetween(start, end);
   }
 }
