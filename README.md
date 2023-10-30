@@ -43,9 +43,9 @@ O projeto Agrix utiliza as seguintes tecnologias e frameworks:
 
 ```bash
 # Clone ou baixe o repositório
-git clone git@github.com:LarissaSimoes/project-agrix-a-java.git
+git clone git@github.com:LarissaSimoes/projeto-agrix-java.git
 # Entre no diretório
-cd project-agrix-a-java
+cd project-agrix-java
 # Instale as dependências
 mvn install -DskipTests
 # Execute a aplicação
