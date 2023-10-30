@@ -27,6 +27,43 @@ O projeto Agrix será desenvolvido em fases, e atualmente (fase A) inclui as seg
 7. **Detalhes de Plantação**:
    - Rota GET `/crops/{id}` para obter informações sobre uma plantação específica.
 
+8. **Ajuste da rota POST /farms/{farmId}/crops para utilizar datas**:
+   - Ajuste da rota POST `/farms/{farmId}/crops` (para incluir dois atributos novos):
+- plantedDate, representando a data em que a plantação foi semeada.
+- harvestDate, representando a data em qua a plantação foi ou está prevista para ser colhida.
+
+9. **Ajuste da rota GET /farms/{farmId}/crops para utilizar datas (plantedDate e harvestDate)**:
+   - Rota GET `/farms/{farmId}/crops` agora traz plantedDate e harvestDate. 
+
+10. **Ajuste da rota GET /crops para utilizar datas (plantedDate e harvestDate)**:
+   - Rota GET `/crops` agora traz plantedDate e harvestDate.
+
+11. **Ajuste da rota GET /crops/{id} para utilizar datas (plantedDate e harvestDate)**:
+   - Rota GET `/crops/{id}` agora traz plantedDate e harvestDate.
+
+12. **Rota GET /crops/search para busca de plantações**:
+   - Rota GET `/crops/search` que recebe dois parâmetros por query string para busca (start: data de início e end: data de fim).
+   - Retorna uma lista com as plantações nas quais o campo harvestDate esteja entre as data de início e de fim.
+
+13. **Rota POST /fertilizers**:
+   - Rota POST `/fertilizers` que recebe via corpo do POST os dados de um fertilizante.
+   - Deve salvar um novo fertilizante a partir dos dados recebidos.
+
+14. **Rota GET /fertilizers**:
+   - Rota GET `/fertilizers` que retorna uma lista de todos os fertilizantes cadastrados.
+
+15. **Rota GET /fertilizers/{id}**:
+   - Rota GET `/fertilizers/{id}`  que recebe o id de um fertilizante pelo caminho da rota.
+   - Caso exista o fertilizante com o id recebido, deve retornar seus dados, incluindo seu id.
+
+16. **Rota POST /crops/{cropId}/fertilizers/{fertilizerId}**:
+   - Rota POST `/crops/{cropId}/fertilizers/{fertilizerId}` que faz a associação entre uma plantação e um fertilizante.
+
+17. **Rota GET /crops/{cropId}/fertilizers**:
+   - Rota GET `/crops/{cropId}/fertilizers` que lista os fertilizante associados a uma plantação.
+
+
+
 ## Tecnologias Utilizadas
 
 O projeto Agrix utiliza as seguintes tecnologias e frameworks:
