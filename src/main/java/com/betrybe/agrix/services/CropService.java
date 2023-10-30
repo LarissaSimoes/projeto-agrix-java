@@ -1,10 +1,14 @@
 package com.betrybe.agrix.services;
 
 import com.betrybe.agrix.dtos.CropDto;
+import com.betrybe.agrix.exceptions.CropNotFoundException;
+import com.betrybe.agrix.exceptions.FertilizerNotFoundException;
 import com.betrybe.agrix.models.entities.Crop;
 import com.betrybe.agrix.models.entities.Farm;
+import com.betrybe.agrix.models.entities.Fertilizer;
 import com.betrybe.agrix.models.repositories.CropRepository;
 import com.betrybe.agrix.models.repositories.FarmRepository;
+import com.betrybe.agrix.models.repositories.FertilizerRepository;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -26,6 +30,9 @@ public class CropService {
 
   @Autowired
   private FarmService farmService;
+
+  @Autowired
+  private FertilizerRepository fertilizerRepository;
 
   /**
    * This method creates a crop.
@@ -96,4 +103,19 @@ public class CropService {
   public List<Crop> findCropsByHarvestDate(LocalDate start, LocalDate end) {
     return cropRepository.findByHarvestDateBetween(start, end);
   }
+
+  /**
+   * This method associates a crop with a fertilizer.
+   */
+  public void associateCropWithFertilizer(Integer cropId, Integer fertilizerId) {
+    Crop crop = cropRepository.findById(cropId)
+        .orElseThrow(() -> new CropNotFoundException("Plantação não encontrada!"));
+
+    Fertilizer fertilizer = fertilizerRepository.findById(fertilizerId)
+        .orElseThrow(() -> new FertilizerNotFoundException("Fertilizante não encontrado!"));
+
+    crop.getFertilizer().add(fertilizer);
+    cropRepository.save(crop);
+  }
+
 }
