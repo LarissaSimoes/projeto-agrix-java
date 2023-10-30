@@ -118,4 +118,13 @@ public class CropService {
     cropRepository.save(crop);
   }
 
+  /**
+   * This method gets all fertilizers that belongs to a crop.
+   */
+  public List<Fertilizer> listFertilizersByCropId(Integer cropId) {
+    Crop crop = cropRepository.findById(cropId)
+        .orElseThrow(() -> new CropNotFoundException("Plantação não encontrada!"));
+    return crop.getFertilizer();
+  }
+
 }

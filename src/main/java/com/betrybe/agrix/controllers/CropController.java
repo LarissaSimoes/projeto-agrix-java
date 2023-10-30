@@ -1,11 +1,16 @@
 package com.betrybe.agrix.controllers;
 
 import com.betrybe.agrix.dtos.CropDto;
+import com.betrybe.agrix.dtos.FertilizerDto;
+import com.betrybe.agrix.exceptions.CropNotFoundException;
 import com.betrybe.agrix.models.entities.Crop;
+import com.betrybe.agrix.models.entities.Fertilizer;
 import com.betrybe.agrix.services.CropService;
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -83,4 +88,26 @@ public class CropController {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
   }
+
+  /**
+   * This method gets all fertilizers that belongs to a crop.
+   */
+  @GetMapping("/{cropId}/fertilizers")
+  public ResponseEntity<Object> listFertilizersByCropId(@PathVariable("cropId") Integer cropId) {
+    try {
+      List<Fertilizer> fertilizers = cropService.listFertilizersByCropId(cropId);
+      List<FertilizerDto> fertilizerDtos = fertilizers.stream()
+          .map(fertilizer -> new FertilizerDto(
+              fertilizer.getId(),
+              fertilizer.getName(),
+              fertilizer.getBrand(),
+              fertilizer.getComposition()
+          ))
+          .collect(Collectors.toList());
+      return ResponseEntity.status(HttpStatus.OK).body(fertilizerDtos);
+    } catch (CropNotFoundException e) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
+  }
+
 }
